@@ -1,5 +1,6 @@
 import { SwitchModeButton } from "./components/theme/SwitchModeButton";
 import { ThemeSetup } from "./components/theme/ThemeSetup";
+import { Login } from "./pages/Login";
 // import { Button, Typography } from "@mui/material";
 // import { TypographyTest } from "../src/styles/example/test";
 
@@ -18,6 +19,7 @@ function App() {
     <>
       <ThemeSetup>
         <SwitchModeButton />
+        <Login />
       </ThemeSetup>
     </>
   );
