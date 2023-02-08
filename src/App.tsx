@@ -1,7 +1,7 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SwitchModeButton } from "./components/theme/SwitchModeButton";
-import { ThemeSetup } from "./components/theme/ThemeSetup";
-import { AuthContextProvider } from "./contexts/AuthContext";
 import { Login } from "./pages/Login";
+import { SignUp } from "./pages/SignUp";
 // import { Button, Typography } from "@mui/material";
 // import { TypographyTest } from "../src/styles/example/test";
 import { Test } from "./pages/Test";
@@ -19,13 +19,29 @@ function App() {
 
   return (
     <>
-      <ThemeSetup>
-        <AuthContextProvider>
-          <Test />
-          <SwitchModeButton />
-          <Login />
-        </AuthContextProvider>
-      </ThemeSetup>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<>Home</>}></Route>
+            <Route path="login" element={<Login />}></Route>
+            <Route path="signUp" element={<SignUp />}></Route>
+            <Route path="createAccount" element={<>create Account</>}></Route>
+            <Route
+              path="test"
+              element={
+                <>
+                  <Test />
+                  <SwitchModeButton />
+                </>
+              }
+            ></Route>
+            {/* <Route path="myEvents" element={<MyEvents />}></Route>
+          
+      
+            <Route path="createEventForm" element={<CreateEventForm />}></Route> */}
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

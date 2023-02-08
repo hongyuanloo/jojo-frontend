@@ -58,7 +58,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
       return response.data.accessToken;
     } catch (error) {
-      console.log(error);
+      throw new Error("Fail to get new accessToken.");
     }
   }
 

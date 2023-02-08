@@ -1,12 +1,11 @@
 import { Container, Box, Typography, Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
-import { AxiosError } from "axios";
-import { useState, useContext } from "react";
+import { AxiosError, HttpStatusCode } from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
 import { axiosPublic } from "../requestMethods/axiosPublic";
 
-export const Login = () => {
+export const SignUp = () => {
   const errorDefault = {
     status: false,
     code: "",
@@ -14,21 +13,16 @@ export const Login = () => {
   };
 
   const inputDefault = {
-    email: "",
-    password: "",
-  };
+    username: "john",
+    email: "john@gmail.com",
+    password: "123",
+  }; //TODO for developement only. reset all field to ""
 
   // local state for controlled inputs
-  const [input, setInput] = useState({
-    email: "loo@gmail.com",
-    password: "123",
-  }); //TODO development only, change back to "inputDefault"
+  const [input, setInput] = useState(inputDefault);
 
   // local state to handle errors.
   const [error, setError] = useState(errorDefault);
-
-  // store userAuthInfo
-  const { setUserAuthInfo } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -39,35 +33,33 @@ export const Login = () => {
     //reset error
     setError(errorDefault);
 
-    // payload for login route.
+    // payload for sign up route.
     const payload = {
       email: input.email,
       password: input.password,
+      username: input.username,
     };
 
     try {
       // fetch data from login route
-      const { data } = await axiosPublic.post("/auth/login", payload);
+      const { status } = await axiosPublic.post("/users", payload);
 
-      //extract data from response.
-      const { accessToken, refreshToken, user } = data;
+      if (status === HttpStatusCode.Created) {
+        // reset input.
+        setInput(inputDefault);
 
-      // update data from response to userAuthInfo
-      setUserAuthInfo({ tokens: { accessToken, refreshToken }, user: user });
-
-      // reset input.
-      setInput(inputDefault);
-
-      navigate("/");
-      console.log("--login ok--");
+        console.log("--sign up ok--");
+        // TODO modal to show account has created.
+        return navigate("/login");
+      }
     } catch (err) {
       // error is instanceof AxiosError
       if (err instanceof AxiosError) {
         const response = err.response;
-        // console.log("--error--response--", response);
+        console.log("--error--response--", response);
         setError({
           status: true,
-          code: response?.status.toString() ?? "unknown",
+          code: response?.statusText.toString() ?? "unknown",
           message: response?.data.error ?? "unknown error.",
         });
       } else {
@@ -91,7 +83,6 @@ export const Login = () => {
     const name = event.target.name;
     setInput((prev) => ({ ...prev, [name]: event.target.value }));
   };
-  // https://github.com/mui/material-ui/blob/v5.11.7/docs/data/material/getting-started/templates/sign-in/SignIn.tsx
   return (
     <Container component="main" maxWidth="tablet">
       <Box
@@ -102,7 +93,7 @@ export const Login = () => {
         }}
       >
         <Typography variant="h6" pt={4}>
-          Login
+          Create Account
         </Typography>
 
         <Box
@@ -117,7 +108,20 @@ export const Login = () => {
             margin="normal"
             fullWidth
             required
-            //   size="small"
+            type="username"
+            label="Username"
+            variant="outlined"
+            name="username"
+            value={input.username}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              handleChange(event);
+            }}
+          />
+
+          <TextField
+            margin="normal"
+            fullWidth
+            required
             type="email"
             label="Email"
             variant="outlined"
@@ -146,18 +150,23 @@ export const Login = () => {
             {error.status && `${error.code}: ${error.message}`}
           </Typography>
 
+          <Typography variant="caption" component="p" sx={{ mt: 2 }}>
+            By signing up, I agree to the Jojo's Terms of Service, Privacy
+            Policy and Refund Policy.
+          </Typography>
+
           <Button
             fullWidth
             variant="contained"
             type="submit"
-            sx={{ mt: 2, mb: 1 }}
+            sx={{ mt: 1, mb: 1 }}
           >
-            Login
+            Create
           </Button>
 
           <Typography variant="body2" sx={{ my: 2 }}>
-            {`Don't have an account?  `}
-            <Link to="/signUp">Create an account.</Link>
+            {`Already have an account?  `}
+            <Link to="/login">Login</Link>
           </Typography>
 
           <Typography variant="body2">
