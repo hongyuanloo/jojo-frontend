@@ -6,8 +6,10 @@ import {
   TextField,
   Link,
 } from "@mui/material";
-import axios, { AxiosError } from "axios";
-import { useState } from "react";
+import { AxiosError } from "axios";
+import { useState, useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { axiosPublic } from "../requestMethods/axiosPublic";
 
 export const Login = () => {
   const errorDefault = {
@@ -16,43 +18,65 @@ export const Login = () => {
     message: "",
   };
 
-  const [input, setInput] = useState({ email: "", password: "" });
+  const inputDefault = {
+    email: "",
+    password: "",
+  };
+
+  // local state for controlled inputs
+  const [input, setInput] = useState({
+    email: "loo@gmail.com",
+    password: "123",
+  }); //TODO development only, change back to "inputDefault"
+
+  // local state to handle errors.
   const [error, setError] = useState(errorDefault);
 
-  //axios.post to authenticate user.
+  // store userAuthInfo
+  const { setUserAuthInfo } = useContext(AuthContext);
+
+  // send login info to login route. If success, update infor into userAuthInfo
   const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
+    // payload for login route.
     const payload = {
       email: input.email,
       password: input.password,
     };
 
     try {
-      // fetch data
-      const { data } = await axios.post(
-        "http://localhost:8000/v1/auth/login",
-        payload
-      );
+      // fetch data from login route
 
-      console.log("--data--", data);
+      const { data } = await axiosPublic.post("/auth/login", payload);
+
+      //extract data from response.
+      const { accessToken, refreshToken, user } = data;
+
+      // update data from response to userAuthInfo
+      setUserAuthInfo({ tokens: { accessToken, refreshToken }, user: user });
+
+      // reset input.
+      // setInput(inputDefault);  //TODO development only, change back to "inputDefault"
+
+      //TODO route to home page!
+      console.log("--login ok--");
     } catch (err) {
       // error is instanceof AxiosError
       if (err instanceof AxiosError) {
         const response = err.response;
-
         // console.log("--error--response--", response);
         setError({
           status: true,
-          code: response?.status?.toString() ?? "",
-          message: response?.data?.error ?? "unknown error.",
+          code: response?.status.toString() ?? "unknown",
+          message: response?.data.error ?? "unknown error.",
         });
       } else {
         // error is not instanceof AxiosError
         setError({
           status: true,
-          code: "",
-          message: "unknown error.",
+          code: "unknown",
+          message: String(error),
         });
       }
     }

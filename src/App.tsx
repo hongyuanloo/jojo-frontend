@@ -1,8 +1,10 @@
 import { SwitchModeButton } from "./components/theme/SwitchModeButton";
 import { ThemeSetup } from "./components/theme/ThemeSetup";
+import { AuthContextProvider } from "./contexts/AuthContext";
 import { Login } from "./pages/Login";
 // import { Button, Typography } from "@mui/material";
 // import { TypographyTest } from "../src/styles/example/test";
+import { Test } from "./pages/Test";
 
 function App() {
   //   <TypographyTest>yoyo</TypographyTest>
@@ -18,8 +20,11 @@ function App() {
   return (
     <>
       <ThemeSetup>
-        <SwitchModeButton />
-        <Login />
+        <AuthContextProvider>
+          <Test />
+          <SwitchModeButton />
+          <Login />
+        </AuthContextProvider>
       </ThemeSetup>
     </>
   );
