@@ -32,6 +32,7 @@ export const lightTheme: ThemeOptions = {
 
     // use this to change text color.
     // text: { primary: green[500] }, // all text will become this color.
+
     mode: "light",
   },
 

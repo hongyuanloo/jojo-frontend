@@ -10,10 +10,10 @@ export const SwitchModeButton = () => {
   const colorMode = useContext(ColorContext);
 
   return (
-    <Box>
-      {theme.palette.mode} mode
+    <Box sx={{ border: "2px solid red" }}>
+      {/* {theme.palette.mode} mode */}
       <IconButton
-        sx={{ ml: 1 }}
+        // sx={{ ml: 1 }}
         onClick={colorMode.toggleColorMode}
         color="inherit"
       >

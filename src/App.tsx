@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SwitchModeButton } from "./components/theme/SwitchModeButton";
+import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 // import { Button, Typography } from "@mui/material";
@@ -22,7 +23,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<>Home</>}></Route>
+            <Route index element={<Home />}></Route>
             <Route path="login" element={<Login />}></Route>
             <Route path="signUp" element={<SignUp />}></Route>
             <Route path="createAccount" element={<>create Account</>}></Route>
