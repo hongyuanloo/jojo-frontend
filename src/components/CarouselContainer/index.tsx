@@ -17,7 +17,7 @@ export const CarouselContainer = () => {
   const [imgIndex, setImgIndex] = useState<number>(0);
 
   useEffect(() => {
-    // create interval to show image every 4s.
+    // interval to show image every 4s.
     const intervalId = setInterval(() => {
       setImgIndex((prev) => (prev + 1) % data.length);
       setShowImg(true);
