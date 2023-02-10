@@ -8,7 +8,6 @@ import { ProductsContainer } from "../components/ProductsContainer";
 export const Home = () => {
   return (
     <div>
-      Home Page
       <AnnouncementBar />
       <NavigationBar />
       <CarouselContainer />
