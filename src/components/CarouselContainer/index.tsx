@@ -1,7 +1,6 @@
 import { Box, Slide } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ImgStyled } from "../../styles/carouselContainer";
-import { customColors } from "../../themes/customColors";
 
 const data = [
   "https://placeimg.com/640/480/any?r=0.9300320592588625",
@@ -37,13 +36,13 @@ export const CarouselContainer = () => {
     // Carousel main container
     <Box
       sx={{
-        border: "2px solid black",
+        // border: "2px solid black",
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
         px: 2,
-        backgroundColor: customColors.dark_greyish,
+        backgroundColor: "black",
       }}
     >
       {/* slide image from right to left. */}

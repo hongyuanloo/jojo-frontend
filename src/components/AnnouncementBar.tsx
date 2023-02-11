@@ -50,7 +50,7 @@ export const AnnouncementBar = () => {
           timeout={{ enter: 900, exit: 900 }}
           container={containerRef.current}
         >
-          <Typography variant="subtitle1" color="black">
+          <Typography variant="subtitle1" color={customColors.text_secondary}>
             {data}
           </Typography>
         </Slide>
@@ -58,7 +58,10 @@ export const AnnouncementBar = () => {
 
       {/* button to hide annoucment bar */}
       <IconButton aria-label="hide announcement bar" sx={{ paddingRight: 1 }}>
-        <CloseOutlinedIcon onClick={() => setHideBar(false)} />
+        <CloseOutlinedIcon
+          onClick={() => setHideBar(false)}
+          sx={{ color: customColors.text_secondary }}
+        />
       </IconButton>
     </Box>
   );
