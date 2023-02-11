@@ -1,4 +1,4 @@
-import { AppBar, styled, Typography } from "@mui/material";
+import { AppBar, styled, Typography, IconButton } from "@mui/material";
 import { customColors } from "../../themes/customColors";
 
 // NavigationBar Main container.
@@ -15,8 +15,12 @@ export const AppBarStyled = styled(AppBar)(({ theme }) => ({
 // styling LOGO's text
 export const TypographyStyled = styled(Typography)(({ theme }) => ({
   fontSize: "1.5rem",
-  paddingLeft: "8px",
+  color: customColors.light_greyish,
   [theme.breakpoints.down("tablet")]: {
     display: "none",
   },
+}));
+
+export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
+  color: customColors.light_greyish,
 }));
