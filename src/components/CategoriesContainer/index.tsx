@@ -45,6 +45,7 @@ export const CategoriesContainer = () => {
         alignItems: "center",
         backgroundColor: customColors.light_greyish,
         // border: "2px solid blue",
+        pb: 2,
       }}
     >
       {/* Categories Title */}
@@ -72,7 +73,7 @@ export const CategoriesContainer = () => {
                 alt="green iguana"
                 sx={{ height: { tablet: "180px", mobile: "140px" } }}
               />
-              {/* card image */}
+              {/* card title */}
               <CardContent sx={{ p: 1 }}>
                 <TypographyStyled>{data[0].name}</TypographyStyled>
               </CardContent>

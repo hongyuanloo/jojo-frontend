@@ -12,6 +12,7 @@ export const Home = () => {
       <NavigationBar />
       <CarouselContainer />
       <CategoriesContainer />
+      <hr />
       <ProductsContainer />
       <FooterContainer />
     </div>

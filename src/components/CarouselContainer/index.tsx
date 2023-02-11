@@ -43,6 +43,7 @@ export const CarouselContainer = () => {
         alignItems: "center",
         px: 2,
         backgroundColor: "black",
+        overflow: "hidden", // hide scrollbar appeared during transition.
       }}
     >
       {/* slide image from right to left. */}

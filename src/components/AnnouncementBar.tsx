@@ -57,11 +57,12 @@ export const AnnouncementBar = () => {
       </Box>
 
       {/* button to hide annoucment bar */}
-      <IconButton aria-label="hide announcement bar" sx={{ paddingRight: 1 }}>
-        <CloseOutlinedIcon
-          onClick={() => setHideBar(false)}
-          sx={{ color: customColors.text_secondary }}
-        />
+      <IconButton
+        aria-label="hide announcement bar"
+        sx={{ paddingRight: 1 }}
+        onClick={() => setHideBar(false)}
+      >
+        <CloseOutlinedIcon sx={{ color: customColors.text_secondary }} />
       </IconButton>
     </Box>
   );
