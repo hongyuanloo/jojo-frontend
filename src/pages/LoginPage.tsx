@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { axiosPublic } from "../requestMethods/axiosPublic";
 
-export const Login = () => {
+export const LoginPage = () => {
   const errorDefault = {
     status: false,
     code: "",

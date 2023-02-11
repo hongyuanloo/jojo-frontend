@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export const Test = () => {
+export const TestPage = () => {
   const navigate = useNavigate();
   const { userAuthInfo, axiosJWT } = useContext(AuthContext); //authContext
 

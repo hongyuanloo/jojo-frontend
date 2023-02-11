@@ -1,11 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SwitchModeButton } from "./components/theme/SwitchModeButton";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { SignUp } from "./pages/SignUp";
+import { CartPage } from "./pages/CartPage";
+import { HomePage } from "./pages/HomePage";
+import { LoginPage } from "./pages/LoginPage";
+import { SignUpPage } from "./pages/SignUpPage";
 // import { Button, Typography } from "@mui/material";
 // import { TypographyTest } from "../src/styles/example/test";
-import { Test } from "./pages/Test";
+import { TestPage } from "./pages/TestPage";
 
 function App() {
   //   <TypographyTest>yoyo</TypographyTest>
@@ -23,15 +24,16 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />}></Route>
-            <Route path="login" element={<Login />}></Route>
-            <Route path="signUp" element={<SignUp />}></Route>
+            <Route index element={<HomePage />}></Route>
+            <Route path="login" element={<LoginPage />}></Route>
+            <Route path="signUp" element={<SignUpPage />}></Route>
+            <Route path="cart" element={<CartPage />}></Route>
             <Route path="createAccount" element={<>create Account</>}></Route>
             <Route
               path="test"
               element={
                 <>
-                  <Test />
+                  <TestPage />
                   <SwitchModeButton />
                 </>
               }

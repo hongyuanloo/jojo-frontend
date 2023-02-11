@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Badge,
 } from "@mui/material";
 import { SwitchModeButton } from "../theme/SwitchModeButton";
 import {
@@ -121,9 +122,11 @@ export const NavigationBar = () => {
 
           {/* onClick: navigate to "/cart" */}
           <IconButtonStyled onClick={() => navigate("/cart")}>
-            <LocalGroceryStoreOutlinedIcon
-              sx={{ fontSize: { mobile: "1.75rem", tablet: "2rem" } }}
-            />
+            <Badge badgeContent={4} color="secondary">
+              <LocalGroceryStoreOutlinedIcon
+                sx={{ fontSize: { mobile: "1.75rem", tablet: "2rem" } }}
+              />
+            </Badge>
           </IconButtonStyled>
 
           {/* onClick: open drawer from left */}

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { axiosPublic } from "../requestMethods/axiosPublic";
 
-export const SignUp = () => {
+export const SignUpPage = () => {
   const errorDefault = {
     status: false,
     code: "",

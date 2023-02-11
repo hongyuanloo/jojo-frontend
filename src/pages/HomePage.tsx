@@ -5,7 +5,7 @@ import { FooterContainer } from "../components/FooterContainer";
 import { NavigationBar } from "../components/NavigationBar";
 import { ProductsContainer } from "../components/ProductsContainer";
 
-export const Home = () => {
+export const HomePage = () => {
   return (
     <div>
       <AnnouncementBar />
