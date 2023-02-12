@@ -3,6 +3,7 @@ import { SwitchModeButton } from "./components/theme/SwitchModeButton";
 import { CartPage } from "./pages/CartPage";
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
+import { OrdersPage } from "./pages/OrdersPage";
 import { SignUpPage } from "./pages/SignUpPage";
 // import { Button, Typography } from "@mui/material";
 // import { TypographyTest } from "../src/styles/example/test";
@@ -28,6 +29,7 @@ function App() {
             <Route path="login" element={<LoginPage />}></Route>
             <Route path="signUp" element={<SignUpPage />}></Route>
             <Route path="cart" element={<CartPage />}></Route>
+            <Route path="orders" element={<OrdersPage />}></Route>
             <Route path="createAccount" element={<>create Account</>}></Route>
             <Route
               path="test"

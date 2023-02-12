@@ -18,6 +18,7 @@ import {
   Menu as MenuIcon,
   HomeRounded as HomeRoundedIcon,
   BugReportRounded as BugReportRoundedIcon,
+  LocalMallOutlined as LocalMallOutlinedIcon,
 } from "@mui/icons-material";
 import {
   AppBarStyled,
@@ -38,6 +39,11 @@ export const NavigationBar = () => {
     { name: "Login", path: "/login", icon: <PersonOutlinedIcon /> },
     { name: "Sign Up", path: "/signup", icon: <PersonOutlinedIcon /> },
     { name: "My Cart", path: "/cart", icon: <LocalGroceryStoreOutlinedIcon /> },
+    {
+      name: "My Orders",
+      path: "/orders",
+      icon: <LocalMallOutlinedIcon />,
+    },
     { name: "Test", path: "/test", icon: <BugReportRoundedIcon /> },
   ];
 

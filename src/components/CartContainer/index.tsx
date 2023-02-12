@@ -1,10 +1,9 @@
 import { CartHeader } from "./CartHeader";
 import { CartBody, ICartItem } from "./CartBody";
 import { CartSubtotalSummary } from "./CartSubtotalSummary";
-import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import { customColors } from "../../themes/customColors";
-import { TypographyStyled } from "../../styles/cartContainer";
+import { ContinueShopping } from "../OrdersContainer/ContinueShopping";
 
 export const CartContainer = () => {
   //TODO fetch data.
@@ -42,18 +41,6 @@ export const CartContainer = () => {
     return subTotal;
   }
 
-  // show button to home if cart is empty
-  function ContinueShopping() {
-    return (
-      <Box textAlign="center" p={2} pb={12}>
-        <TypographyStyled pb={1}>You have 0 cart items.</TypographyStyled>
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <Button variant="contained">CONTINUE SHOPPING</Button>
-        </Link>
-      </Box>
-    );
-  }
-
   return (
     // main cart container
     <Box
@@ -71,7 +58,11 @@ export const CartContainer = () => {
       <CartHeader />
 
       {/* cart body */}
-      {data.length > 0 ? <CartBody cartProducts={data} /> : ContinueShopping()}
+      {data.length > 0 ? (
+        <CartBody cartProducts={data} />
+      ) : (
+        <ContinueShopping parameter="cart items" />
+      )}
 
       {/* subtotal summary */}
       {data.length > 0 ? (
