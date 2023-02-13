@@ -1,3 +1,4 @@
+import { useReduxSelector } from "../../redux/hooks";
 import {
   Box,
   Stack,
@@ -12,30 +13,21 @@ import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/Indeterminate
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import { customColors } from "../../themes/customColors";
 
-interface ICartProducts {
-  cartProducts: ICartItem[];
-}
-
-export interface ICartItem {
-  [key: string]: any; // any other properties is allowed too.
-  title: string;
-  price: number;
-  images: string[];
-  quantity: number;
-}
-
-export const CartBody = ({ cartProducts }: ICartProducts) => {
-  // console.log("cartProducts--", cartProducts);
+export const CartBody = () => {
+  // cartItems state from redux store
+  const cartItems = useReduxSelector((state) => state.cart.cartItems);
+  // console.log("cartItems--", cartItems);
 
   return (
     //cart body
     <Box sx={{ px: 2 }}>
       <hr />
 
-      {/* map through each item of cartProducts  */}
-      {cartProducts.map((cartItem) => {
+      {/* map through each item of cartItems  */}
+      {cartItems.map((cartItem) => {
+        const { title, images, price, categories } = cartItem.product;
         return (
-          <div key={cartItem.title}>
+          <div key={title}>
             {/* cart item container*/}
             <Grid container>
               {/* left and mid sides cart item */}
@@ -55,20 +47,20 @@ export const CartBody = ({ cartProducts }: ICartProducts) => {
                   {/* colum1: image */}
                   <Avatar
                     variant="square"
-                    alt={cartItem.title}
+                    alt={title}
                     sx={{ width: 60, height: 60 }}
-                    src={cartItem.images[0]}
+                    src={images[0]}
                   />
 
                   {/* colum2: product details - title, category, price, del icon */}
                   <Stack>
                     <TypographyStyled fontWeight={600}>
-                      {cartItem.title}
+                      {title}
                     </TypographyStyled>
                     <TypographyStyled>
-                      {"Category: {cartItem.category}"}
+                      {`Category: ${categories[0]}`}
                     </TypographyStyled>
-                    <TypographyStyled>{`SGD: ${cartItem.price}.00`}</TypographyStyled>
+                    <TypographyStyled>{`SGD: ${price}.00`}</TypographyStyled>
 
                     <Box>
                       <IconButton
@@ -157,7 +149,7 @@ export const CartBody = ({ cartProducts }: ICartProducts) => {
               >
                 <TypographyStyled fontWeight={600}>{"Total:"}</TypographyStyled>
                 <TypographyStyled pt={1}>
-                  {`SGD ${cartItem.price * cartItem.quantity}.00`}
+                  {`SGD ${price * cartItem.quantity}.00`}
                 </TypographyStyled>
               </Grid>
             </Grid>

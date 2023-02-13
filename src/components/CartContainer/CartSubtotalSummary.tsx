@@ -31,20 +31,20 @@ export const CartSubtotalSummary = ({
       {/* Subtotal */}
       <SubtotalBoxStyled>
         <SubtotalTextStyled>Subtotal:</SubtotalTextStyled>
-        <SubtotalPriceStyled>{`SGD ${subtotal}`}</SubtotalPriceStyled>
+        <SubtotalPriceStyled>{`SGD ${subtotal}.00`}</SubtotalPriceStyled>
       </SubtotalBoxStyled>
 
       {/* Discount */}
       <SubtotalBoxStyled>
         <SubtotalTextStyled>Discount:</SubtotalTextStyled>
-        <SubtotalPriceStyled>{`SGD ${discount}`}</SubtotalPriceStyled>
+        <SubtotalPriceStyled>{`SGD ${discount}.00`}</SubtotalPriceStyled>
       </SubtotalBoxStyled>
 
       {/* Grand total */}
       <SubtotalBoxStyled>
         <SubtotalTextStyled>Grand total:</SubtotalTextStyled>
         <SubtotalPriceStyled sx={{ fontSize: "1.1rem", fontWeight: 800 }}>
-          {`SGD ${subtotal - discount}`}
+          {`SGD ${subtotal - discount}.00`}
         </SubtotalPriceStyled>
       </SubtotalBoxStyled>
     </Box>

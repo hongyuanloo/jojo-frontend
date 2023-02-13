@@ -1,10 +1,10 @@
-import { Container, Typography, Grid } from "@mui/material";
-import { customColors } from "../../themes/customColors";
-import { ProductCard } from "./ProductCard";
 import { useEffect } from "react";
 import { axiosPublic } from "../../requestMethods/axiosPublic";
 import { useReduxDispatch, useReduxSelector } from "../../redux/hooks";
 import { updateProducts } from "../../redux/features/productsSlice";
+import { Container, Typography, Grid } from "@mui/material";
+import { customColors } from "../../themes/customColors";
+import { ProductCard } from "./ProductCard";
 
 export const ProductsContainer = () => {
   //! For development use only.
@@ -68,7 +68,7 @@ export const ProductsContainer = () => {
         // update data to allProducts state
         dispatch(updateProducts({ allProducts: data }));
 
-        // console.log("--response.data--", data);
+        console.log("--fetchProducts--", data);
       } catch (error) {
         console.log("--fetch /products error --", error);
       }

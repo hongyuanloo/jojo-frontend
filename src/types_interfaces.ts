@@ -1,4 +1,4 @@
-// products related
+// product type
 export interface IProduct {
   id: string;
   title: string;
@@ -10,6 +10,15 @@ export interface IProduct {
   [index: string]: any;
 }
 
+// cart type
+export interface ICartItem {
+  quantity: number;
+  product: IProduct;
+  userId: string;
+  [index: string]: any;
+}
+
+// product categories type
 export type TCategory =
   | "Clothes"
   | "Electronics"

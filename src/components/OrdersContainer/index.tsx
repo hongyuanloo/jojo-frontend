@@ -1,8 +1,11 @@
+import { ContinueShopping } from "./ContinueShopping";
+import { PleaseLogin } from "../CartContainer/PleaseLogin";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
 import { OrdersHeader } from "./OrdersHeader";
 import { IOrderItem, OrdersBody } from "./OrdersBody";
 import { Box } from "@mui/material";
 import { customColors } from "../../themes/customColors";
-import { ContinueShopping } from "./ContinueShopping";
 
 export const OrdersContainer = () => {
   //TODO fetch data.
@@ -31,6 +34,10 @@ export const OrdersContainer = () => {
     },
   ];
 
+  const { userAuthInfo } = useContext(AuthContext);
+  // user id determines if user is login
+  const { id } = userAuthInfo.user;
+
   return (
     // main cart container
     <Box
@@ -46,6 +53,9 @@ export const OrdersContainer = () => {
     >
       {/* orders header */}
       <OrdersHeader />
+
+      {/* If user is not login, prompt user to login. */}
+      {id === "" ? <PleaseLogin parameter="orders" /> : ""}
 
       {/* orders body */}
       {data.length > 0 ? (
