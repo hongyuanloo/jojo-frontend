@@ -1,10 +1,10 @@
 import { Container, Box, Typography, Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import { AxiosError } from "axios";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
 import { axiosPublic } from "../requestMethods/axiosPublic";
+import { useLocalStorage } from "../components/customHooks/useLocalStorage";
 
 export const LoginPage = () => {
   const errorDefault = {
@@ -27,8 +27,10 @@ export const LoginPage = () => {
   // local state to handle errors.
   const [error, setError] = useState(errorDefault);
 
-  // store userAuthInfo
-  const { setUserAuthInfo } = useContext(AuthContext);
+  // init access to local storage
+  const [, setAccessTokenLS] = useLocalStorage("accessToken");
+  const [, setRefreshTokenLS] = useLocalStorage("refreshToken");
+  const [, setUserLS] = useLocalStorage("user");
 
   const navigate = useNavigate();
 
@@ -52,8 +54,10 @@ export const LoginPage = () => {
       //extract data from response.
       const { accessToken, refreshToken, user } = data;
 
-      // update data from response to userAuthInfo
-      setUserAuthInfo({ tokens: { accessToken, refreshToken }, user: user });
+      // update data from response to local storage.
+      setAccessTokenLS(accessToken);
+      setRefreshTokenLS(refreshToken);
+      setUserLS(user);
 
       // reset input.
       setInput(inputDefault);
