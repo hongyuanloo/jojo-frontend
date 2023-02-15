@@ -1,21 +1,25 @@
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { axiosJWT } from "../requestMethods/axiosJWT";
+import { useLocalStorage } from "../components/customHooks/useLocalStorage";
 
 export const TestPage = () => {
   const navigate = useNavigate();
-  const { userAuthInfo, axiosJWT } = useContext(AuthContext); //authContext
 
-  const { accessToken, refreshToken } = userAuthInfo.tokens;
-  const { id, role, username } = userAuthInfo.user;
+  const [getAccessTokenLS] = useLocalStorage("accessToken");
+  const [getRefreshTokenLS] = useLocalStorage("refreshToken");
+  const [getUserLS] = useLocalStorage("user");
+
+  const accessToken = getAccessTokenLS();
+  const refreshToken = getRefreshTokenLS();
+  const user = getUserLS();
 
   return (
     <div>
       <div>---accessToken---'{accessToken}' </div>
       <div>---refreshToken---{refreshToken} </div>
-      <div>id:{id} </div>
+      <div>id:{user?.id} </div>
       <div>
-        role: {role},username: {username}{" "}
+        role: {user?.role},username: {user?.username}
       </div>
       <hr></hr>
 
