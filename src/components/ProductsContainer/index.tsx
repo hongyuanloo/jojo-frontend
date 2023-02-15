@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { axiosPublic } from "../../requestMethods/axiosPublic";
 import { useReduxDispatch, useReduxSelector } from "../../redux/hooks";
-import { updateProducts } from "../../redux/features/productsSlice";
+import { updateProducts } from "../../redux/slices/productsSlice";
 import { Container, Typography, Grid } from "@mui/material";
 import { customColors } from "../../themes/customColors";
 import { ProductCard } from "./ProductCard";

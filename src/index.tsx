@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App";
 import { ThemeSetup } from "./components/theme/ThemeSetup";
-import { AuthContextProvider } from "./contexts/AuthContext";
-import { store } from "./redux/store";
+import { store, persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,12 +12,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeSetup>
-      <AuthContextProvider>
-        {/* provide redux store for global use */}
-        <Provider store={store}>
+      {/* provide redux store for global use */}
+      <Provider store={store}>
+        {/* render UI only after redux persisted data is available to redux store */}
+        <PersistGate loading={<h1>Loading Redux ..</h1>} persistor={persistor}>
           <App />
-        </Provider>
-      </AuthContextProvider>
+        </PersistGate>
+      </Provider>
     </ThemeSetup>
   </React.StrictMode>
 );

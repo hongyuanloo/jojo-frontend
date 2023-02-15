@@ -25,3 +25,12 @@ export type TCategory =
   | "Furniture"
   | "Shoes"
   | "Others";
+
+// user type
+export interface IUser {
+  id: string;
+  role: TRole;
+  username: string;
+}
+
+export type TRole = "ADMIN" | "BASIC";
