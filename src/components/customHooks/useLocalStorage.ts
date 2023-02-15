@@ -7,7 +7,7 @@ export const useLocalStorage = (name: string): Function[] => {
   };
 
   //set data to local storage
-  const setLocalStorage = (item: object): void => {
+  const setLocalStorage = (item: object | string): void => {
     const data = JSON.stringify(item);
     localStorage.setItem(name, data);
   };

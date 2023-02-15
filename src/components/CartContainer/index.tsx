@@ -1,7 +1,6 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useEffect, useState } from "react";
 import { useReduxDispatch, useReduxSelector } from "../../redux/hooks";
-import { updateCartItems } from "../../redux/features/cartSlice";
+import { updateCartItems } from "../../redux/slices/cartSlice";
 import { PleaseLogin } from "./PleaseLogin";
 import { CartHeader } from "./CartHeader";
 import { CartBody } from "./CartBody";
@@ -9,6 +8,10 @@ import { CartSubtotalSummary } from "./CartSubtotalSummary";
 import { Box, Button } from "@mui/material";
 import { customColors } from "../../themes/customColors";
 import { ContinueShopping } from "../OrdersContainer/ContinueShopping";
+import { axiosPublic } from "../../requestMethods/axiosPublic";
+import { axiosJWT } from "../../requestMethods/axiosJWT";
+import { useLocalStorage } from "../customHooks/useLocalStorage";
+import { IUser } from "../../types_interfaces";
 
 export const CartContainer = () => {
   //! For development use only.
@@ -34,9 +37,16 @@ export const CartContainer = () => {
   //   },
   // ];
 
-  const { userAuthInfo, axiosJWT } = useContext(AuthContext);
-  // user id determines if user is login
-  const { id } = userAuthInfo.user;
+  // init access to local storage
+  const [LS_getUser] = useLocalStorage("user");
+
+  // default user state
+  const defaultUser: IUser = { id: "", role: "BASIC", username: "" };
+
+  // init user state to data from local storage, or "defaultUser"
+  const [user] = useState(LS_getUser() || defaultUser);
+
+  const { id } = user;
 
   // to dispatch action object to redux store
   const dispatch = useReduxDispatch();
@@ -44,7 +54,7 @@ export const CartContainer = () => {
   const cartItems = useReduxSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
-    // if user is logined (user's id not empty), fetch cart data and update to cartItems state
+    // if user is logged in (user's id not empty), fetch cart data and update to cartItems state
     async function fetchCartData() {
       try {
         if (id) {
@@ -61,7 +71,7 @@ export const CartContainer = () => {
     }
     fetchCartData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   // calculate subtotal for all cart items
   function calculateSubtotal() {
@@ -72,6 +82,26 @@ export const CartContainer = () => {
       subTotal += product.price * quantity;
     });
     return subTotal;
+  }
+
+  async function handleClickCheckout() {
+    try {
+      //TODO convert to axiosJWT
+      // console.log("--cartItems--", cartItems);
+      //post "cartItems"
+      const { data } = await axiosPublic.post(
+        `users/${user?.id}/create-checkout-session`, // `/users/c742ac1e-79a5-4335-b41b-c10c8a91059f/create-checkout-session`
+        { cartItems }
+      );
+
+      //reroute to received session url
+      if (data.url) window.location = data.url;
+
+      console.log("--handleClickCheckout--", data);
+    } catch (error) {
+      //
+      console.log("--handleClickCheckout-error--", error);
+    }
   }
 
   return (
@@ -91,17 +121,17 @@ export const CartContainer = () => {
       <CartHeader />
 
       {/* If user is not login, prompt user to login. */}
-      {id === "" ? <PleaseLogin parameter="cart items" /> : ""}
+      {!id && <PleaseLogin parameter="cart items" />}
 
       {/* cart body */}
-      {cartItems.length > 0 ? (
+      {cartItems.length > 0 && id ? (
         <CartBody />
       ) : (
         <ContinueShopping parameter="cart items" />
       )}
 
       {/* subtotal summary */}
-      {cartItems.length > 0 ? (
+      {cartItems.length > 0 && id ? (
         <CartSubtotalSummary subtotal={calculateSubtotal()} />
       ) : (
         ""
@@ -112,9 +142,11 @@ export const CartContainer = () => {
         textAlign="right"
         px={4}
         sx={{ paddingBottom: 5 }}
-        display={cartItems.length > 0 ? "block" : "none"}
+        display={cartItems.length > 0 && id ? "block" : "none"}
       >
-        <Button variant="contained">CHECKOUT</Button>
+        <Button variant="contained" onClick={handleClickCheckout}>
+          CHECKOUT
+        </Button>
       </Box>
     </Box>
   );
