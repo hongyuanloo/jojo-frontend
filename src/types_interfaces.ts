@@ -12,6 +12,7 @@ export interface IProduct {
 
 // cart type
 export interface ICartItem {
+  id: string;
   quantity: number;
   product: IProduct;
   userId: string;
