@@ -34,3 +34,12 @@ export interface IUser {
 }
 
 export type TRole = "ADMIN" | "BASIC";
+
+// interface for single order item
+export interface IOrderItem {
+  [key: string]: any; // any other properties is allowed too.
+  id: string;
+  paidAt: Date | number | undefined; //Date | null | string | number | undefined
+  totalPaid: string;
+  totalItems: string;
+}
