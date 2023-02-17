@@ -10,7 +10,7 @@ interface Iparameter {
 export const ContinueShopping = ({ parameter }: Iparameter) => {
   return (
     <Box textAlign="center" p={2} pb={12}>
-      <TypographyStyled pb={1}>{`You have 0 ${parameter}.`}</TypographyStyled>
+      <TypographyStyled pb={2}>{`You have 0 ${parameter}.`}</TypographyStyled>
       <Link to="/" style={{ textDecoration: "none" }}>
         <Button variant="contained">CONTINUE SHOPPING</Button>
       </Link>

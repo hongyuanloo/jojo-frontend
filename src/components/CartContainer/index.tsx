@@ -8,7 +8,6 @@ import { CartSubtotalSummary } from "./CartSubtotalSummary";
 import { Box, Button } from "@mui/material";
 import { customColors } from "../../themes/customColors";
 import { ContinueShopping } from "../OrdersContainer/ContinueShopping";
-import { axiosPublic } from "../../requestMethods/axiosPublic";
 import { axiosJWT } from "../../requestMethods/axiosJWT";
 import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { IUser } from "../../types_interfaces";
@@ -39,6 +38,7 @@ export const CartContainer = () => {
 
   // init access to local storage
   const [LS_getUser] = useLocalStorage("user");
+  const [, LS_setNewOrder] = useLocalStorage("newOrder");
 
   // default user state
   const defaultUser: IUser = { id: "", role: "BASIC", username: "" };
@@ -62,7 +62,7 @@ export const CartContainer = () => {
           // update data to cartItems state
           dispatch(updateCartItems({ cartItems: data.cartItems }));
 
-          // console.log("--fetchCartData--", data);
+          console.log("--fetchCartData--", data);
         }
         return;
       } catch (error) {
@@ -86,20 +86,26 @@ export const CartContainer = () => {
 
   async function handleClickCheckout() {
     try {
-      //TODO convert to axiosJWT
-      // console.log("--cartItems--", cartItems);
-      //post "cartItems"
-      const { data } = await axiosPublic.post(
+      // post cartItems to API, expect to receive session url and newOrderID
+      const { data } = await axiosJWT.post(
         `users/${user?.id}/create-checkout-session`, // `/users/c742ac1e-79a5-4335-b41b-c10c8a91059f/create-checkout-session`
         { cartItems }
       );
 
+      // store new order id and paidAt status to local storage.
+      LS_setNewOrder({ id: data.newOrderID, paidAt: null });
+
       //reroute to received session url
       if (data.url) window.location = data.url;
 
-      console.log("--handleClickCheckout--", data);
+      // console.log("--handleClickCheckout--", data);
+
+      /** Stripe testing payment:
+       *  - For success : enter 4242 4242 4242 4242 in credit card.
+       *  - For fail : enter 4000 0000 0000 0341 in credit card.
+       */
     } catch (error) {
-      //
+      // handle error
       console.log("--handleClickCheckout-error--", error);
     }
   }
