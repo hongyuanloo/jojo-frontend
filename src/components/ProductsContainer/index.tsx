@@ -44,10 +44,7 @@ export const ProductsContainer = () => {
   function displayAllProductCards() {
     // map information from allProducts state to "ProductCard"
     const allProductsCards = allProducts.map((product) => {
-      const { title, images, price } = product;
-      return (
-        <ProductCard key={title} title={title} price={price} images={images} />
-      );
+      return <ProductCard key={product.title} product={product} />;
     });
 
     return (

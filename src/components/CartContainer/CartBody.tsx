@@ -15,7 +15,6 @@ import { customColors } from "../../themes/customColors";
 import { axiosJWT } from "../../requestMethods/axiosJWT";
 import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { updateCartItems } from "../../redux/slices/cartSlice";
-import { ICartItem } from "../../types_interfaces";
 
 export const CartBody = () => {
   const [LS_getUser] = useLocalStorage("user");
@@ -31,15 +30,11 @@ export const CartBody = () => {
     // init upsertObj
     const upsertObj = { productId, quantity: 1 };
 
-    // update new quantity to newCartItems
-    const newCartItems = cartItems.map((cartItem) => {
-      const updatedCartItem = { ...cartItem };
-
+    // if productId found in cartItems, update upsertObj with new quantity.
+    cartItems.forEach((cartItem) => {
       if (cartItem.product.id === productId) {
         upsertObj.quantity = cartItem.quantity + 1;
-        updatedCartItem.quantity++;
       }
-      return updatedCartItem;
     });
 
     try {
@@ -49,9 +44,12 @@ export const CartBody = () => {
         upsertObj
       );
 
-      // update cartItem ok, update local cartItems state
+      // update cartItem ok
       if (response.status === 200) {
-        dispatch(updateCartItems({ cartItems: newCartItems }));
+        // fetch updated cartItems
+        const { data } = await axiosJWT.get(`/users/${userId}/cartitems`);
+        // update new cartItems to cartItems state
+        dispatch(updateCartItems({ cartItems: data.cartItems }));
       }
     } catch (error) {
       // handle error.
@@ -65,63 +63,47 @@ export const CartBody = () => {
     const upsertObj = { productId, quantity: 1 };
     /**   flag to check if this product has quantity of 1.
      *    if yes, delete it. if no, quantity minus - 1    */
-    let deleteCartItem = true;
     let deleteCartItemIndex = null;
 
     // update new quantity to newCartItems
-    const newCartItems = cartItems.map((cartItem, index) => {
+    cartItems.forEach((cartItem, index) => {
       const { quantity } = cartItem;
-      const updatedCartItem: ICartItem = { ...cartItem };
+      // const updatedCartItem: ICartItem = { ...cartItem };
 
       // if matches, quantity must be >1 in order to minus quantity.
       if (cartItem.product.id === productId) {
         if (quantity > 1) {
           upsertObj.quantity = quantity - 1;
-          updatedCartItem.quantity--;
-          deleteCartItem = false;
         } else {
           deleteCartItemIndex = index;
         }
       }
-      return updatedCartItem;
     });
-
-    // remove cartItem from newCartItems if the qty is 1
-    if (deleteCartItem && deleteCartItemIndex !== null) {
-      newCartItems.splice(deleteCartItemIndex, 1);
-    }
 
     try {
       // upsert newCartItems with updated qty - 1 to server.
-      if (!deleteCartItem) {
+      let response;
+      if (deleteCartItemIndex === null) {
         // update cartItem in server using upsertObj
-        const response = await axiosJWT.post(
-          `/users/${userId}/cartitems`,
-          upsertObj
-        );
-
-        // update cartItem ok, update local cartItems state
-        if (response.status === 200) {
-          dispatch(updateCartItems({ cartItems: newCartItems }));
-        }
+        response = await axiosJWT.post(`/users/${userId}/cartitems`, upsertObj);
       } else {
-        // given userId and productId, delete the productId from cart
-        const response = await axiosJWT.delete(
+        // given userId and productId, delete productId from cart in server
+        response = await axiosJWT.delete(
           `/users/${userId}/cartitems/${productId}`
         );
+      }
 
-        console.log("--deleted response--", response);
-        // update cartItem ok, update local cartItems state
-        if (response.status === 200) {
-          dispatch(updateCartItems({ cartItems: newCartItems }));
-        }
+      // update cartItem ok, update local cartItems state
+      if (response.status === 200) {
+        // fetch updated cartItems
+        const { data } = await axiosJWT.get(`/users/${userId}/cartitems`);
+        // update new cartItems to cartItems state
+        dispatch(updateCartItems({ cartItems: data.cartItems }));
       }
     } catch (error) {
       // handle error
       console.log("--handleClickMinusCartItem-error--", error);
     }
-
-    console.log("--handleClickMinusCartItem--"); //! delete
   }
 
   // remove productId from cart
@@ -129,18 +111,15 @@ export const CartBody = () => {
     let deleteCartItemIndex = null;
 
     // update find index of productId to delete
-    const newCartItems = cartItems.map((cartItem, index) => {
+    cartItems.forEach((cartItem, index) => {
       // if matches, update deleteCartItemIndex
       if (cartItem.product.id === productId) {
         deleteCartItemIndex = index;
       }
-      return cartItem;
     });
 
-    // remove cartItem from newCartItems if the qty is 1
-    if (deleteCartItemIndex !== null) {
-      newCartItems.splice(deleteCartItemIndex, 1);
-    }
+    // if cant find item to delete, return
+    if (deleteCartItemIndex === null) return;
 
     try {
       // given userId and productId, delete the productId from cart
@@ -148,9 +127,12 @@ export const CartBody = () => {
         `/users/${userId}/cartitems/${productId}`
       );
 
-      // deleted cartItem ok, update local cartItems state
+      // deleted cartItem ok, fetch new cartItems and update local cartItems state
       if (response.status === 200) {
-        dispatch(updateCartItems({ cartItems: newCartItems }));
+        // fetch updated cartItems
+        const { data } = await axiosJWT.get(`/users/${userId}/cartitems`);
+        // update new cartItems to cartItems state
+        dispatch(updateCartItems({ cartItems: data.cartItems }));
       }
     } catch (error) {
       // handle error

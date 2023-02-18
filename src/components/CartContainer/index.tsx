@@ -57,21 +57,20 @@ export const CartContainer = () => {
     // if user is logged in (user's id not empty), fetch cart data and update to cartItems state
     async function fetchCartData() {
       try {
-        if (id) {
-          const { data } = await axiosJWT.get(`/users/${id}/cartitems`);
-          // update data to cartItems state
-          dispatch(updateCartItems({ cartItems: data.cartItems }));
+        const { data } = await axiosJWT.get(`/users/${id}/cartitems`);
 
-          console.log("--fetchCartData--", data);
-        }
-        return;
+        // update data to cartItems state
+        dispatch(updateCartItems({ cartItems: data.cartItems }));
+
+        // console.log("--fetchCartData--", data);
       } catch (error) {
         console.log("--fetch /products error --", error);
       }
     }
-    fetchCartData();
+
+    id && fetchCartData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   // calculate subtotal for all cart items
   function calculateSubtotal() {
