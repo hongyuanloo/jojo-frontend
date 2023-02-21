@@ -21,10 +21,15 @@ export interface ICartItem {
 
 // product categories type
 export type TCategory =
-  | "Clothes"
-  | "Electronics"
-  | "Furniture"
   | "Shoes"
+  | "Furnitures"
+  | "Watches"
+  | "Cars"
+  | "Houses"
+  | "Clothes"
+  | "Albums"
+  | "Books"
+  | "Movies"
   | "Others";
 
 // user type

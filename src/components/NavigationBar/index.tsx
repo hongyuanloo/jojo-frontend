@@ -25,6 +25,7 @@ import {
   IconButtonStyled,
   TypographyStyled,
 } from "../../styles/navigationBar";
+import { useReduxSelector } from "../../redux/hooks";
 
 export const NavigationBar = () => {
   // for navigation to other routes.
@@ -32,6 +33,9 @@ export const NavigationBar = () => {
 
   // state for drawer to open or close
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  // cartItems state from redux store
+  const cartItems = useReduxSelector((state) => state.cart.cartItems);
 
   // list of drawer items and path
   const drawerItems = [
@@ -75,6 +79,17 @@ export const NavigationBar = () => {
         })}
       </List>
     );
+  }
+
+  // calculate total cart items
+  function calculateTotalCartItems() {
+    let totalItems = 0;
+
+    cartItems.forEach((cartItem) => {
+      const { quantity } = cartItem;
+      totalItems += quantity;
+    });
+    return totalItems;
   }
 
   return (
@@ -128,7 +143,7 @@ export const NavigationBar = () => {
 
           {/* onClick: navigate to "/cart" */}
           <IconButtonStyled onClick={() => navigate("/cart")}>
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={calculateTotalCartItems()} color="secondary">
               <LocalGroceryStoreOutlinedIcon
                 sx={{ fontSize: { mobile: "1.75rem", tablet: "2rem" } }}
               />

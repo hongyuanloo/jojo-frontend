@@ -99,7 +99,7 @@ export const ProductCard = ({ product }: { product: IProduct }) => {
             component="img"
             image={images[0]}
             alt="green iguana"
-            sx={{ height: { tablet: "180px", mobile: "140px" } }}
+            sx={{ height: { tablet: "260px", mobile: "180px" } }}
           />
         </CardActionArea>
 
