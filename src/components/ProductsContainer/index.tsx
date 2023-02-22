@@ -5,6 +5,7 @@ import { updateProducts } from "../../redux/slices/productsSlice";
 import { Container, Typography, Grid } from "@mui/material";
 import { customColors } from "../../themes/customColors";
 import { ProductCard } from "./ProductCard";
+import { CircularProgressLoading } from "../ProgressIndicator";
 
 export const ProductsContainer = () => {
   //! For development use only.
@@ -93,7 +94,9 @@ export const ProductsContainer = () => {
       </Typography>
 
       {/* display all Products if allProducts state is not empty */}
-      {allProducts.length > 0 ? displayAllProductCards() : "Loading..."}
+      {allProducts.length > 0
+        ? displayAllProductCards()
+        : CircularProgressLoading()}
     </Container>
   );
 };
