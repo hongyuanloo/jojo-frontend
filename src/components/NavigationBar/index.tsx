@@ -42,6 +42,7 @@ export const NavigationBar = () => {
     { name: "Home", path: "/", icon: <HomeRoundedIcon /> },
     { name: "Login", path: "/login", icon: <PersonOutlinedIcon /> },
     { name: "Sign Up", path: "/signup", icon: <PersonOutlinedIcon /> },
+    { name: "Log out", path: "/logout", icon: <PersonOutlinedIcon /> },
     { name: "My Cart", path: "/cart", icon: <LocalGroceryStoreOutlinedIcon /> },
     {
       name: "My Orders",
