@@ -26,6 +26,7 @@ import {
   TypographyStyled,
 } from "../../styles/navigationBar";
 import { useReduxSelector } from "../../redux/hooks";
+import { useLocalStorage } from "../customHooks/useLocalStorage";
 
 export const NavigationBar = () => {
   // for navigation to other routes.
@@ -37,50 +38,16 @@ export const NavigationBar = () => {
   // cartItems state from redux store
   const cartItems = useReduxSelector((state) => state.cart.cartItems);
 
-  // list of drawer items and path
-  const drawerItems = [
-    { name: "Home", path: "/", icon: <HomeRoundedIcon /> },
-    { name: "Login", path: "/login", icon: <PersonOutlinedIcon /> },
-    { name: "Sign Up", path: "/signup", icon: <PersonOutlinedIcon /> },
-    { name: "Log out", path: "/logout", icon: <PersonOutlinedIcon /> },
-    { name: "My Cart", path: "/cart", icon: <LocalGroceryStoreOutlinedIcon /> },
-    {
-      name: "My Orders",
-      path: "/orders",
-      icon: <LocalMallOutlinedIcon />,
-    },
-    { name: "Test", path: "/test", icon: <BugReportRoundedIcon /> },
-  ];
+  // get user data from lcoal storage.
+  const [LS_getUser] = useLocalStorage("user");
+
+  // user is null if not login.
+  const user = LS_getUser();
 
   // toggle drawer open or close.
   const toggleDrawer = () => {
     setOpenDrawer((prev) => !prev);
   };
-
-  // list all drawer items
-  function displayDrawerItems() {
-    return (
-      <List>
-        {drawerItems.map((item, index) => {
-          const { name, path, icon } = item;
-          return (
-            <ListItem key={name} disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  toggleDrawer();
-                  navigate(path);
-                }}
-              >
-                <ListItemIcon>{icon}</ListItemIcon>
-
-                <ListItemText primary={name} />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-      </List>
-    );
-  }
 
   // calculate total cart items
   function calculateTotalCartItems() {
@@ -160,8 +127,135 @@ export const NavigationBar = () => {
 
           {/* drawer container */}
           <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-            {/* display all drawer items */}
-            {displayDrawerItems()}
+            <List>
+              {/* Home item */}
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    toggleDrawer();
+                    navigate("/");
+                  }}
+                >
+                  {/* Home icon */}
+                  <ListItemIcon>
+                    <HomeRoundedIcon />
+                  </ListItemIcon>
+                  {/* Home text */}
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </ListItem>
+
+              {/* hide Login item if user is login */}
+              {!user && (
+                // Login item
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      toggleDrawer();
+                      navigate("/login");
+                    }}
+                  >
+                    {/* Login icon */}
+                    <ListItemIcon>
+                      <PersonOutlinedIcon />
+                    </ListItemIcon>
+                    {/* Login text */}
+                    <ListItemText primary="Login" />
+                  </ListItemButton>
+                </ListItem>
+              )}
+
+              {/* hide Sign Up item if user is login */}
+              {!user && (
+                // Sign Up item
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      toggleDrawer();
+                      navigate("/signup");
+                    }}
+                  >
+                    {/* Sign Up icon */}
+                    <ListItemIcon>
+                      <PersonOutlinedIcon />
+                    </ListItemIcon>
+                    {/* Sign Up text */}
+                    <ListItemText primary="Sign Up" />
+                  </ListItemButton>
+                </ListItem>
+              )}
+
+              {/* hide logout item if user not login */}
+              {user && (
+                // Logout item
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      toggleDrawer();
+                      navigate("/logout");
+                    }}
+                  >
+                    {/* logout icon */}
+                    <ListItemIcon>
+                      <PersonOutlinedIcon />
+                    </ListItemIcon>
+                    {/* logout text */}
+                    <ListItemText primary="Log out" />
+                  </ListItemButton>
+                </ListItem>
+              )}
+
+              {/* My Cart item */}
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    toggleDrawer();
+                    navigate("/cart");
+                  }}
+                >
+                  {/* My Cart icon */}
+                  <ListItemIcon>
+                    <LocalGroceryStoreOutlinedIcon />
+                  </ListItemIcon>
+                  {/* My Cart text */}
+                  <ListItemText primary="My Cart" />
+                </ListItemButton>
+              </ListItem>
+
+              {/* My Orders item */}
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    toggleDrawer();
+                    navigate("/orders");
+                  }}
+                >
+                  {/* My Orders icon */}
+                  <ListItemIcon>
+                    <LocalMallOutlinedIcon />
+                  </ListItemIcon>
+                  {/* My Orders text */}
+                  <ListItemText primary="My Orders" />
+                </ListItemButton>
+              </ListItem>
+
+              {/* Test item */}
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    toggleDrawer();
+                    navigate("/test");
+                  }}
+                >
+                  {/* Test icon */}
+                  <ListItemIcon>
+                    <BugReportRoundedIcon />
+                  </ListItemIcon>
+                  {/* Test text */}
+                  <ListItemText primary="Test" />
+                </ListItemButton>
+              </ListItem>
+            </List>
           </Drawer>
         </Box>
       </Box>

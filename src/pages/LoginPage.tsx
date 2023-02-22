@@ -17,12 +17,14 @@ export const LoginPage = () => {
     email: "",
     password: "",
   };
+  //! For development, use data below.
+  // {
+  //   email: "loo@gmail.com",
+  //   password: "123",
+  // }
 
   // local state for controlled inputs
-  const [input, setInput] = useState({
-    email: "loo@gmail.com",
-    password: "123",
-  }); //TODO development only, change back to "inputDefault"
+  const [input, setInput] = useState(inputDefault);
 
   // local state to handle errors.
   const [error, setError] = useState(errorDefault);

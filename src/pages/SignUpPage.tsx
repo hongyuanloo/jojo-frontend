@@ -13,10 +13,16 @@ export const SignUpPage = () => {
   };
 
   const inputDefault = {
-    username: "john",
-    email: "john@gmail.com",
-    password: "123",
-  }; //TODO for developement only. reset all field to ""
+    username: "",
+    email: "",
+    password: "",
+  };
+  //! For development, use data below.
+  // {
+  //   username: "john",
+  //   email: "john@gmail.com",
+  //   password: "123",
+  // }
 
   // local state for controlled inputs
   const [input, setInput] = useState(inputDefault);

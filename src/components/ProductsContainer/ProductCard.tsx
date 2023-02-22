@@ -66,27 +66,29 @@ export const ProductCard = ({ product }: { product: IProduct }) => {
       {/* Card container */}
       <CardStyled>
         {/* add to cart button */}
-        <IconButton
-          aria-label="add to cart"
-          // add item to cart only if user is login.
-          onClick={() => userId && handleClickAddToCart(product.id)}
-          sx={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            zIndex: 99,
-          }}
-        >
-          <AddCircleOutlinedIcon
+        {userId && (
+          <IconButton
+            aria-label="add to cart"
+            // add item to cart only if user is login.
+            onClick={() => handleClickAddToCart(product.id)}
             sx={{
-              fontSize: {
-                mobile: "2rem",
-                tablet: "3rem",
-              },
-              border: "2px solid red",
+              position: "absolute",
+              top: "0",
+              right: "0",
+              zIndex: 99,
             }}
-          />
-        </IconButton>
+          >
+            <AddCircleOutlinedIcon
+              sx={{
+                fontSize: {
+                  mobile: "2rem",
+                  tablet: "3rem",
+                },
+                // border: "2px solid red",
+              }}
+            />
+          </IconButton>
+        )}
 
         {/* button wrapping img */}
         <CardActionArea

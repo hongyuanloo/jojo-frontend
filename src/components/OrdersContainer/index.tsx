@@ -55,6 +55,7 @@ export const OrdersContainer = () => {
 
   useEffect(() => {
     // fetch orders
+
     async function fetchOrdersData() {
       try {
         const { data } = await axiosJWT.get(`users/${id}/orders`);
@@ -67,7 +68,7 @@ export const OrdersContainer = () => {
       }
     }
 
-    fetchOrdersData();
+    id && fetchOrdersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
