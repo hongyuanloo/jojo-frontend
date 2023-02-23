@@ -6,6 +6,8 @@ import { Box, Button, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ReportGmailerrorredRoundedIcon from "@mui/icons-material/ReportGmailerrorredRounded";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+import { useReduxDispatch } from "../redux/hooks";
+import { updateCartItems } from "../redux/slices/cartSlice";
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -23,6 +25,9 @@ export const CheckoutPage = () => {
 
   // get new order from local storage.
   const newOrder = LS_getNewOrder();
+
+  // to dispatch action object to redux store
+  const dispatch = useReduxDispatch();
 
   // update order by stamping current time to "paidAt"
   async function updateOrderPaidStatus() {
@@ -58,6 +63,9 @@ export const CheckoutPage = () => {
     const newOrderID = LS_getNewOrder()?.id;
     // remove new order ID from local storage.
     LS_clearNewOrder();
+
+    // update new cartItems to cartItems state
+    dispatch(updateCartItems({ cartItems: [] }));
 
     return (
       <Box
