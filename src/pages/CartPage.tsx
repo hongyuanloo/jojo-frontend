@@ -1,6 +1,6 @@
 import { AnnouncementBar } from "../components/AnnouncementBar";
 import { CartContainer } from "../components/CartContainer";
-import { FooterContainer } from "../components/FooterContainer";
+import { Footer } from "../components/Footer";
 import { NavigationBar } from "../components/NavigationBar";
 
 export const CartPage = () => {
@@ -9,8 +9,7 @@ export const CartPage = () => {
       <AnnouncementBar />
       <NavigationBar />
       <CartContainer />
-      <hr />
-      <FooterContainer />
+      <Footer />
     </div>
   );
 };

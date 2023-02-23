@@ -1,4 +1,6 @@
 import { ThemeOptions } from "@mui/material";
+import { customColors } from "./customColors";
+
 // import { createTheme } from "@mui/material";
 // import { orange, pink, purple } from "@mui/material/colors";
 
@@ -34,6 +36,10 @@ export const lightTheme: ThemeOptions = {
     // text: { primary: green[500] }, // all text will become this color.
 
     mode: "light",
+    background: {
+      default: customColors.light_greyish,
+      paper: customColors.light_greyish,
+    },
   },
 
   // use below for responsive typography

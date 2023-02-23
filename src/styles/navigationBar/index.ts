@@ -1,12 +1,13 @@
-import { AppBar, styled, Typography, IconButton } from "@mui/material";
+import { styled, Typography, IconButton, Box } from "@mui/material";
 import { customColors } from "../../themes/customColors";
 
 // NavigationBar Main container.
-export const AppBarStyled = styled(AppBar)(({ theme }) => ({
+export const BoxStyled = styled(Box)(({ theme }) => ({
   position: "sticky",
-  backgroundColor: customColors.turkish,
+  backgroundColor: customColors.dark_blueish,
   padding: "16px 24px",
-
+  top: 0,
+  zIndex: 99,
   [theme.breakpoints.down("tablet")]: {
     padding: "8px 16px",
   },

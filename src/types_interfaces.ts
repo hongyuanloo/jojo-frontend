@@ -45,7 +45,7 @@ export type TRole = "ADMIN" | "BASIC";
 export interface IOrderItem {
   [key: string]: any; // any other properties is allowed too.
   id: string;
-  paidAt: Date | number | undefined; //Date | null | string | number | undefined
+  paidAt: Date | number | undefined | string; //Date | null | string | number | undefined
   totalPaid: string;
   totalItems: string;
 }

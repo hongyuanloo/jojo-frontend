@@ -1,5 +1,5 @@
 import { AnnouncementBar } from "../components/AnnouncementBar";
-import { FooterContainer } from "../components/FooterContainer";
+import { Footer } from "../components/Footer";
 import { NavigationBar } from "../components/NavigationBar";
 import { OrdersContainer } from "../components/OrdersContainer";
 
@@ -9,8 +9,7 @@ export const OrdersPage = () => {
       <AnnouncementBar />
       <NavigationBar />
       <OrdersContainer />
-      <hr />
-      <FooterContainer />
+      <Footer />
     </div>
   );
 };

@@ -13,7 +13,7 @@ interface IThemeSetupProps {
 }
 
 export const ThemeSetup = ({ children }: IThemeSetupProps) => {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<PaletteMode>("dark");
 
   // colorMode returns populated IColorContextSchema
   const colorMode = useMemo(

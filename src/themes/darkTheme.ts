@@ -1,4 +1,5 @@
 import { ThemeOptions } from "@mui/material";
+import { customColors } from "./customColors";
 // import { pink, orange, purple, green } from "@mui/material/colors";
 
 declare module "@mui/material/styles" {
@@ -29,5 +30,9 @@ export const darkTheme: ThemeOptions = {
     // secondary: { light: purple[300], main: purple[500], dark: purple[700] },
     // text: { primary: green[500] }, // all text will become this color.
     mode: "dark",
+    background: {
+      default: customColors.dark_greyish,
+      paper: customColors.dark_greyish,
+    },
   },
 };

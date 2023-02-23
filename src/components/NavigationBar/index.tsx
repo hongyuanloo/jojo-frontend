@@ -21,9 +21,9 @@ import {
   LocalMallOutlined as LocalMallOutlinedIcon,
 } from "@mui/icons-material";
 import {
-  AppBarStyled,
   IconButtonStyled,
   TypographyStyled,
+  BoxStyled,
 } from "../../styles/navigationBar";
 import { useReduxSelector } from "../../redux/hooks";
 import { useLocalStorage } from "../customHooks/useLocalStorage";
@@ -62,7 +62,7 @@ export const NavigationBar = () => {
 
   return (
     // NavigationBar Main container.
-    <AppBarStyled>
+    <BoxStyled>
       <Box
         sx={{
           display: "flex",
@@ -259,6 +259,6 @@ export const NavigationBar = () => {
           </Drawer>
         </Box>
       </Box>
-    </AppBarStyled>
+    </BoxStyled>
   );
 };

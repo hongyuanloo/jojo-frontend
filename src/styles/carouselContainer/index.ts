@@ -1,4 +1,5 @@
 import { Box, styled } from "@mui/material";
+import { customColors } from "../../themes/customColors";
 
 export const ImgStyled = styled("img")(({ theme }) => ({
   [theme.breakpoints.up("tablet")]: {
@@ -16,7 +17,7 @@ export const ImgContainerStyled = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: "black",
+  backgroundColor: customColors.dark_greyish,
   overflow: "hidden", // hide scrollbar appeared during transition.
   [theme.breakpoints.up("tablet")]: {
     height: "640px",

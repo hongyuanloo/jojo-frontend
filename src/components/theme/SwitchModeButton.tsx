@@ -3,6 +3,7 @@ import DarkIcon from "@mui/icons-material/Brightness4";
 import LightIcon from "@mui/icons-material/Brightness7";
 import { useContext } from "react";
 import { ColorContext } from "../../contexts/ColorContext";
+import { customColors } from "../../themes/customColors";
 
 // toggle theme to dark or light mode.
 export const SwitchModeButton = () => {
@@ -10,14 +11,12 @@ export const SwitchModeButton = () => {
   const colorMode = useContext(ColorContext);
 
   return (
-    <Box sx={{ border: "2px solid red" }}>
-      {/* {theme.palette.mode} mode */}
+    <Box>
       <IconButton
-        // sx={{ ml: 1 }}
         onClick={colorMode.toggleColorMode}
-        color="inherit"
+        sx={{ color: customColors.light_greyish }}
       >
-        {theme.palette.mode === "dark" ? <LightIcon /> : <DarkIcon />}
+        {theme.palette.mode === "dark" ? <DarkIcon /> : <LightIcon />}
       </IconButton>
     </Box>
   );

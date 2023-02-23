@@ -3,23 +3,36 @@ import { useReduxSelector } from "../../redux/hooks";
 import { TypographyStyled } from "../../styles/cartContainer";
 import { BoldTitleStyled } from "../../styles/ordersContainer";
 
-//! For development use only.
-// const dateTimeoptions: any = {
-//   year: "numeric",
-//   month: "numeric",
-//   day: "numeric",
-//   hour: "numeric",
-//   minute: "numeric",
-//   second: "numeric",
-//   hour12: false,
-//   timeZone: "Singapore",
-// };
-
 export const OrdersBody = () => {
   // ordersItems state from redux store
   const ordersItems = useReduxSelector((state) => state.orders.ordersItems);
 
-  // console.log("ordersItems--", ordersItems);
+  // if ISODate is string, format it t "21 February 2023, 10:12:26 pm" and return.
+  // if ISODate is string, return.
+  function formatDateForDisplay(ISODate: any) {
+    const dateTimeoptions: any = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true,
+      timeZone: "Singapore",
+    };
+
+    if (typeof ISODate === "string") {
+      const dateObj = new Date(ISODate);
+      const newDateFormat = new Intl.DateTimeFormat(
+        "en-GB",
+        dateTimeoptions
+      ).format(dateObj);
+
+      return newDateFormat;
+    }
+    return ISODate;
+  }
+
   return (
     //orders body
     <Box
@@ -55,21 +68,14 @@ export const OrdersBody = () => {
                 <Stack>
                   <TypographyStyled py={1}>
                     <BoldTitleStyled>{"Order no. : "}</BoldTitleStyled>
+                    <br></br>
                     {orderItem.id}
                   </TypographyStyled>
-                  {/* <TypographyStyled>
-                    <BoldTitleStyled>{"Total items : "}</BoldTitleStyled>
-                    {orderItem.totalItems}
-                  </TypographyStyled> */}
                   <TypographyStyled py={1}>
-                    <BoldTitleStyled>{`Paid on : ${
-                      orderItem.paidAt ?? "Pending Payment"
-                    }`}</BoldTitleStyled>
-
-                    {/*   //! For development use only.
-                    {new Intl.DateTimeFormat("en-GB", dateTimeoptions).format(
-                      orderItem.paidAt
-                    )} */}
+                    <BoldTitleStyled>{`Paid on : `}</BoldTitleStyled>
+                    <br></br>
+                    {formatDateForDisplay(orderItem.paidAt) ??
+                      "Pending Payment"}
                   </TypographyStyled>
                 </Stack>
               </Grid>
