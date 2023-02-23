@@ -167,7 +167,6 @@ export const CheckoutPage = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          // border: "2px solid red",
           height: "400px",
           maxWidth: "400px",
           margin: "0 auto",

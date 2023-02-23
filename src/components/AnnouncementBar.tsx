@@ -31,7 +31,6 @@ export const AnnouncementBar = () => {
     <Box
       display={hideBar ? "flex" : "none"}
       sx={{
-        // border: "2px solid black",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",

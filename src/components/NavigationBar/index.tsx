@@ -17,7 +17,7 @@ import {
   SentimentVerySatisfiedOutlined as SentimentVerySatisfiedOutlinedIcon,
   Menu as MenuIcon,
   HomeRounded as HomeRoundedIcon,
-  BugReportRounded as BugReportRoundedIcon,
+  // BugReportRounded as BugReportRoundedIcon,
   LocalMallOutlined as LocalMallOutlinedIcon,
 } from "@mui/icons-material";
 import {
@@ -240,21 +240,21 @@ export const NavigationBar = () => {
               </ListItem>
 
               {/* Test item */}
-              <ListItem disablePadding>
+              {/* <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => {
                     toggleDrawer();
                     navigate("/test");
                   }}
-                >
-                  {/* Test icon */}
-                  <ListItemIcon>
+                > */}
+              {/* Test icon */}
+              {/* <ListItemIcon>
                     <BugReportRoundedIcon />
-                  </ListItemIcon>
-                  {/* Test text */}
-                  <ListItemText primary="Test" />
+                  </ListItemIcon> */}
+              {/* Test text */}
+              {/* <ListItemText primary="Test" />
                 </ListItemButton>
-              </ListItem>
+              </ListItem> */}
             </List>
           </Drawer>
         </Box>

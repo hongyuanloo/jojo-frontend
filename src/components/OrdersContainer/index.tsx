@@ -61,8 +61,6 @@ export const OrdersContainer = () => {
         const { data } = await axiosJWT.get(`users/${id}/orders`);
         // update data to ordersItems state
         dispatch(updateOrderItems({ ordersItems: [...data] }));
-
-        // console.log("-fetchOrdersData--", data);
       } catch (error) {
         console.log("--fetch /orders error--", error);
       }
@@ -81,7 +79,6 @@ export const OrdersContainer = () => {
         justifyContent: "top",
         backgroundColor: customColors.light_greyish,
         color: customColors.text_secondary,
-        // border: "2px solid red",
         pb: 2,
       }}
     >

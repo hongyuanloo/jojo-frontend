@@ -3,7 +3,6 @@ import { styled, Card, Typography } from "@mui/material";
 export const CardStyled = styled(Card)(({ theme }) => ({
   maxWidth: 345,
   margin: "auto",
-  // border: "2px solid green",
 }));
 
 export const TypographyStyled = styled(Typography)(({ theme }) => ({

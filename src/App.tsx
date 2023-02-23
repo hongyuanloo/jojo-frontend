@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { SwitchModeButton } from "./components/theme/SwitchModeButton";
 import { CartPage } from "./pages/CartPage";
 import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { OrdersPage } from "./pages/OrdersPage";
 import { SignUpPage } from "./pages/SignUpPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import { TestPage } from "./pages/TestPage";
 import { LogoutPage } from "./pages/LogoutPage";
+// import { TestPage } from "./pages/TestPage";
+// import { SwitchModeButton } from "./components/theme/SwitchModeButton";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
             <Route path="orders" element={<OrdersPage />}></Route>
             <Route path="checkout" element={<CheckoutPage />}></Route>
             <Route path="createAccount" element={<>create Account</>}></Route>
-            <Route
+            {/* <Route
               path="test"
               element={
                 <>
@@ -31,7 +31,7 @@ function App() {
                   <SwitchModeButton />
                 </>
               }
-            ></Route>
+            ></Route> */}
           </Route>
         </Routes>
       </BrowserRouter>

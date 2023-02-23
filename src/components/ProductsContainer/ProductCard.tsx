@@ -56,13 +56,7 @@ export const ProductCard = ({ product }: { product: IProduct }) => {
 
   return (
     // Container for one product card
-    <Grid
-      item
-      mobile={6}
-      tablet={4}
-      // sx={{ border: "2px solid red" }}
-      padding={1}
-    >
+    <Grid item mobile={6} tablet={4} padding={1}>
       {/* Card container */}
       <CardStyled>
         {/* add to cart button */}
